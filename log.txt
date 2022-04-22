@@ -1,0 +1,7 @@
+Fri Apr 22 2022 14:18:42 GMT+0800 (中国标准时间) -- POST -- /test/1 -- 4ms
+Fri Apr 22 2022 15:46:54 GMT+0800 (中国标准时间) -- GET -- /dogs -- 1350ms
+Fri Apr 22 2022 15:47:07 GMT+0800 (中国标准时间) -- GET -- /dogs -- 983ms
+Fri Apr 22 2022 15:47:21 GMT+0800 (中国标准时间) -- GET -- /dogs -- 679ms
+Fri Apr 22 2022 16:06:19 GMT+0800 (中国标准时间) -- GET -- /dogs -- 1061ms
+Fri Apr 22 2022 17:29:57 GMT+0800 (中国标准时间) -- GET -- /dogs -- 2707ms
+Fri Apr 22 2022 17:34:42 GMT+0800 (中国标准时间) -- GET -- /dogs -- 894ms
