@@ -1,4 +1,5 @@
 import { IBoot, Application } from 'egg'
+import { join } from 'path'
 
 export default class AppBoot implements IBoot {
   private readonly app: Application
@@ -7,6 +8,12 @@ export default class AppBoot implements IBoot {
   }
   configWillLoad() {
     this.app.config.coreMiddleware.unshift('myLogger')
+  }
+  async willReady() {
+    const dir = join(this.app.config.baseDir, 'app/model')
+    this.app.loader.loadToApp(dir, 'model', {
+      caseStyle: 'upper'
+    })
   }
   async didReady() {
     const ctx = await this.app.createAnonymousContext()
