@@ -20,9 +20,12 @@ export default (appInfo: EggAppInfo) => {
   config.logger = {
     consoleLevel: 'DEBUG'
   }
-  // config.mongoose = {
-  //   url: 'mongodb://localhost:27017/lego'
-  // }
+  config.mongoose = {
+    url: 'mongodb://localhost:27017/lego'
+  }
+  config.bcrypt = {
+    saltRounds: 10
+  }
 
   // add your special config in here
   const bizConfig = {
