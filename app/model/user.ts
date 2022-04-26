@@ -11,17 +11,24 @@ export interface UserProps {
   phoneNumber?: string;
   createdAt: Date;
   updatedAt: Date;
+  type: 'email' | 'cellphone' | 'oauth';
+  provider?: 'gitee';
+  oauthID?: string;
+  role?: 'admin' | 'normal';
 }
 
 function initUserModel(app: Application) {
   const AutoIncrement = AutoIncrementFactory(app.mongoose);
   const UserSchema = new Schema<UserProps>({
     username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
+    password: { type: String },
     email: { type: String },
     nickName: { type: String },
     picture: { type: String },
-    phoneNumber: { type: String }
+    phoneNumber: { type: String },
+    type: { type: String, default: 'email' },
+    provider: { type: String },
+    oauthId: { type: String }
   }, {
     timestamps: true,
     toJSON: {

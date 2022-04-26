@@ -18,6 +18,9 @@ import 'egg-view-nunjucks';
 import 'egg-mongoose';
 import 'egg-validate';
 import 'egg-bcrypt';
+import 'egg-jwt';
+import 'egg-redis';
+import 'egg-cors';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -37,5 +40,8 @@ declare module 'egg' {
     mongoose?: EggPluginItem;
     validate?: EggPluginItem;
     bcrypt?: EggPluginItem;
+    jwt?: EggPluginItem;
+    redis?: EggPluginItem;
+    cors?: EggPluginItem;
   }
 }

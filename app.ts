@@ -8,4 +8,7 @@ export default class AppBoot implements IBoot {
   configWillLoad() {
     this.app.config.coreMiddleware.unshift('myLogger')
   }
+  async didReady() {
+    console.log('middleware', this.app.middleware)
+  }
 }
