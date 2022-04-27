@@ -1,15 +1,9 @@
 import { Controller } from 'egg'
 import inputValidate from '../decorator/inputValidate'
 import checkPermission from '../decorator/checkPermission'
-
 const workCreateRules = {
   title: 'string',
 }
-
-// const channelCreateRules = {
-//   name: 'string',
-//   workId: 'number'
-// }
 
 export interface IndexCondition {
   pageIndex?: number;
@@ -19,13 +13,38 @@ export interface IndexCondition {
   customSort?: Record<string, any>;
   find?: Record<string, any>;
 }
-
 export default class WorkController extends Controller {
   @inputValidate(workCreateRules, 'workValidateFail')
   async createWork() {
     const { ctx, service } = this
     const workData = await service.work.createEmptyWork(ctx.request.body)
     ctx.helper.success({ ctx, res: workData })
+  }
+  async copyWork() {
+    const { ctx } = this
+    const { id } = ctx.params
+    try {
+      const res = await ctx.service.work.copyWork(parseInt(id))
+      ctx.helper.success({ ctx, res })
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' })
+    }
+  }
+  @checkPermission('Work', 'workNoPermissonFail')
+  async myWork() {
+    const { ctx } = this
+    const { id } = ctx.params
+    const res = await this.ctx.model.Work.findOne({ id }).lean()
+    ctx.helper.success({ ctx, res })
+  }
+  async template() {
+    const { ctx } = this
+    const { id } = ctx.params
+    const res = await this.ctx.model.Work.findOne({ id }).lean()
+    if (!res.isPublic || !res.isTemplate) {
+      return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' })
+    }
+    ctx.helper.success({ ctx, res })
   }
   async myList() {
     const { ctx } = this
@@ -86,4 +105,5 @@ export default class WorkController extends Controller {
   async publishTemplate() {
     await this.publish(true)
   }
+
 }

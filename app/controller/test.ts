@@ -1,4 +1,4 @@
-import { Controller } from 'egg';
+import { Controller } from 'egg'
 
 export default class TestController extends Controller {
   async index() {
@@ -7,6 +7,7 @@ export default class TestController extends Controller {
     const { query, body } = ctx.request
     const { baseUrl } = ctx.app.config
     const persons = await ctx.service.dog.showPlayers()
+    console.log('result', persons)
     const resp = {
       query,
       id,
@@ -17,7 +18,7 @@ export default class TestController extends Controller {
     ctx.helper.success({ ctx, res: resp })
   }
   async getDog() {
-    const { ctx, service } = this
+    const { service, ctx } = this
     const resp = await service.dog.show()
     await ctx.render('test.nj', { url: resp.message })
   }

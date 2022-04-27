@@ -1,13 +1,11 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import * as dovenv from 'dotenv'
 dovenv.config()
-
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
-
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1650278033320_248';
+  config.keys = appInfo.name + '_1631677352881_6029';
 
   // add your egg config in here
   config.middleware = [ 'customError' ];
@@ -47,15 +45,12 @@ export default (appInfo: EggAppInfo) => {
     origin: 'http://localhost:8080',
     allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH'
   }
-
   const aliCloudConfig = {
-    // 您的AccessKey ID
-    accessKeyId: process.env.ALC_ACCESS_KEY || '',
-    // 您的AccessKey Secret
-    accessKeySecret: process.env.ALC_SECRET_KEY || '',
+    accessKeyId: process.env.ALC_ACCESS_KEY,
+    accessKeySecret: process.env.ALC_SECRET_KEY,
     endpoint: 'dysmsapi.aliyuncs.com'
   }
-
+  // gitee oauth config
   const giteeOauthConfig = {
     cid: process.env.GITEE_CID,
     secret: process.env.GITEE_SECRET,
@@ -63,7 +58,6 @@ export default (appInfo: EggAppInfo) => {
     authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code',
     giteeUserAPI: 'https://gitee.com/api/v5/user'
   }
-
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

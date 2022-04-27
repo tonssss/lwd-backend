@@ -1,6 +1,5 @@
 import { GlobalErrorTypes } from '../error'
 import { Controller } from 'egg'
-
 export default function checkPermission(modelName: string, errorType: GlobalErrorTypes, userKey = 'user') {
   return function(prototype, key: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value

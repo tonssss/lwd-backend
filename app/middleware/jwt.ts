@@ -1,12 +1,10 @@
-
-import { Context, EggAppConfig } from 'egg'
+import { Context, Application, EggAppConfig } from 'egg'
 import { verify } from 'jsonwebtoken'
-
 function getTokenValue(ctx: Context) {
-  // JWT header
-  // Authorization: Bearer tokenXXX
+  // JWT Header 格式
+  // Authorization:Bearer tokenXXX
   const { authorization } = ctx.header
-  // 没有这个header直接返回false
+  // 没有这个 header 直接返回false
   if (!ctx.header || !authorization) {
     return false
   }
@@ -25,14 +23,14 @@ function getTokenValue(ctx: Context) {
     return false
   }
 }
-
 export default (options: EggAppConfig['jwt']) => {
-  return async (ctx:Context, next:()=> Promise<any>) => {
-    // 从header获取对应的 token
+  return async (ctx: Context, next: () => Promise<any>) => {
+    // 从 header 获取对应的 token
     const token = getTokenValue(ctx)
     if (!token) {
       return ctx.helper.error({ ctx, errorType: 'loginValidateFail' })
     }
+    // 判断 secret 是否存在
     const { secret } = options
     if (!secret) {
       throw new Error('Secret not provided')
