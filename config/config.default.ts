@@ -29,6 +29,9 @@ export default (appInfo: EggAppInfo) => {
   config.bcrypt = {
     saltRounds: 10
   }
+  config.session = {
+    encrypt: false
+  }
   config.jwt = {
     secret: '1234567890'
   }
@@ -69,7 +72,8 @@ export default (appInfo: EggAppInfo) => {
     },
     baseUrl: 'default.url',
     aliCloudConfig,
-    giteeOauthConfig
+    giteeOauthConfig,
+    H5BaseURL: 'http://localhost:7001/api/pages'
   };
 
   // the return config will combines to EggAppConfig
