@@ -9,7 +9,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1631677352881_6029';
 
   // add your egg config in here
-  config.middleware = [ 'customError' ];
+  // config.middleware = [ 'customError' ];
 
   config.security = {
     csrf: {
@@ -32,7 +32,9 @@ export default (appInfo: EggAppInfo) => {
     encrypt: false
   }
   config.jwt = {
-    secret: '1234567890'
+    enable: true,
+    secret: process.env.JWT_SECRET || '',
+    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img', '/api/channel' ]
   }
   config.redis = {
     client: {
@@ -43,8 +45,8 @@ export default (appInfo: EggAppInfo) => {
     }
   }
   config.multipart = {
-    mode: 'file',
-    tmpdir: join(appInfo.baseDir, 'uploads')
+    whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
+    fileSize: '2mb'
   }
   config.static = {
     dir: [
@@ -56,9 +58,17 @@ export default (appInfo: EggAppInfo) => {
     origin: 'http://localhost:8080',
     allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH'
   }
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ALC_ACCESS_KEY || '',
+      accessKeySecret: process.env.ALC_SECRET_KEY || '',
+      bucket: 'lwd-backend',
+      endpoint: 'oss-cn-shenzhen.aliyuncs.com'
+    }
+  }
   const aliCloudConfig = {
-    accessKeyId: process.env.ALC_ACCESS_KEY,
-    accessKeySecret: process.env.ALC_SECRET_KEY,
+    accessKeyId: process.env.ALC_ACCESS_KEY || '',
+    accessKeySecret: process.env.ALC_SECRET_KEY || '',
     endpoint: 'dysmsapi.aliyuncs.com'
   }
   // gitee oauth config
