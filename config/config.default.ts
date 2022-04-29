@@ -14,7 +14,8 @@ export default (appInfo: EggAppInfo) => {
   config.security = {
     csrf: {
       enable: false
-    }
+    },
+    domainWhiteList: [ 'http://localhost:8080' ]
   }
   config.view = {
     defaultViewEngine: 'nunjucks'
@@ -54,10 +55,10 @@ export default (appInfo: EggAppInfo) => {
       { prefix: '/uploads', dir: join(appInfo.baseDir, 'uploads') }
     ]
   }
-  config.cors = {
-    origin: 'http://localhost:8080',
-    allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH'
-  }
+  // config.cors = {
+  //   origin: 'http://localhost:8080',
+  //   allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH'
+  // }
   config.oss = {
     client: {
       accessKeyId: process.env.ALC_ACCESS_KEY || '',
@@ -88,7 +89,8 @@ export default (appInfo: EggAppInfo) => {
     baseUrl: 'default.url',
     aliCloudConfig,
     giteeOauthConfig,
-    H5BaseURL: 'http://localhost:7001/api/pages'
+    H5BaseURL: 'http://localhost:7001/api/pages',
+    jwtExpires: '1h'
   };
 
   // the return config will combines to EggAppConfig

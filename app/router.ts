@@ -31,5 +31,9 @@ export default (app: Application) => {
 
   router.post('/utils/upload', controller.utils.uploadMutipleFiles)
   router.get('/pages/:idAndUuid', controller.utils.renderH5Page)
+  router.post('/channel', controller.work.createChannel)
+  router.get('/channel/getWorkChannels/:id', controller.work.getWorkChannel)
+  router.patch('/channel/updateName/:id', controller.work.updateChannelName)
+  router.delete('/channel/:id', controller.work.deleteChannel)
 
 };
