@@ -154,5 +154,4 @@ export default class WorkController extends Controller {
   async publishTemplate() {
     await this.publish(true)
   }
-
 }
